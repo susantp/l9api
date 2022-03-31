@@ -18,10 +18,11 @@ class HomeController extends Controller
     {
     }
 
-    public function webIndex()
+    public function webIndex(): string
     {
         Artisan::call('inspire');
         $message = Artisan::output();
+
         return "<center><h1>{$message}</h1></center>";
     }
 

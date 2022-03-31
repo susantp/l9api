@@ -28,7 +28,7 @@ class ResponseServiceProvider extends ServiceProvider
                     ]
                 ),
                 $statusCode
-            );
+            )->header('Content-Type', 'application/json');
         });
         Response::macro('errors', function ($data, $statusCode) {
             return Response::make(
@@ -39,7 +39,7 @@ class ResponseServiceProvider extends ServiceProvider
                     ]
                 ),
                 $statusCode
-            );
+            )->header('Content-Type', 'application/json');
         });
     }
 }
