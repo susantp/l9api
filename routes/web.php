@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Api\Controllers\HomeController::class, 'index']);
+Route::get('/', [\App\Http\Api\Controllers\HomeController::class, 'webIndex']);
 Route::fallback(function () {
     return abort(404);
 });
