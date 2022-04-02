@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace App\Interface;
 
+
+/**
+ *
+ */
 interface RepositoryInterface
 {
-    /**
-     * @return array
-     */
-    public function getAll(): array;
+    public function find($id);
 
-    /**
-     * @param $id
-     * @return array
-     */
-    public function getById($id): array;
+    public function findById($id);
+
+    public function get();
 }

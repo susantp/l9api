@@ -30,7 +30,7 @@ class ResponseServiceProvider extends ServiceProvider
                 $statusCode
             )->header('Content-Type', 'application/json');
         });
-        Response::macro('errors', function ($data, $statusCode) {
+        Response::macro('fail', function ($data, $statusCode) {
             return Response::make(
                 collect(
                     [

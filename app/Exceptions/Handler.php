@@ -14,7 +14,6 @@ class Handler extends ExceptionHandler
      * @var array<int, class-string<Throwable>>
      */
     protected $dontReport = [
-        //
     ];
 
     /**
@@ -30,19 +29,14 @@ class Handler extends ExceptionHandler
 
     /**
      * Register the exception handling callbacks for the application.
-     *
-     * @return void
      */
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            //
         });
         $this->renderable(function (NotFoundHttpException $exception, $request) {
             if ($request->is('api/*')) {
-                return response()->json([
-                    'message' => 'Record not found.'
-                ], 404);
+                return response()->fail(__('errors.resource-not-found', []), 404);
             }
         });
     }

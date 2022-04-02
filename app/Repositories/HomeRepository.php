@@ -1,28 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Repositories;
 
-use App\Interface\RepositoryInterface;
+use App\Repositories\Product\ProductRepository;
 use JetBrains\PhpStorm\ArrayShape;
-use Ramsey\Uuid\Uuid;
 
-/**
- *
- */
-class HomeRepository implements RepositoryInterface
+class HomeRepository
 {
-    public function getAll(): array
-    {
-        return [];
-    }
-
     /**
-     * @param $id
-     * @return array
+     * @param ProductRepository $productRepository
      */
-    public function getById($id): array
+    public function __construct(protected ProductRepository $productRepository)
     {
-        return [];
     }
 
     /**
@@ -31,46 +22,10 @@ class HomeRepository implements RepositoryInterface
     #[ArrayShape(['pageTitle' => 'string', 'products' => 'array[]'])]
     public function getHomeData(): array
     {
-        return [
-            'pageTitle' => 'Home Page',
-            'products' => [
-                [
-                    'id' => Uuid::uuid4(),
-                    'title' => 'first product',
-                    'description' => 'first product description',
-                    'price' => 100,
-                ],
-                [
-                    'id' => Uuid::uuid4(),
-                    'title' => 'Second product',
-                    'description' => 'Second product description',
-                    'price' => 100,
-                ],
-                [
-                    'id' => Uuid::uuid4(),
-                    'title' => 'Third product',
-                    'description' => 'Third product description',
-                    'price' => 100,
-                ],
-                [
-                    'id' => Uuid::uuid4(),
-                    'title' => 'Fourth product',
-                    'description' => 'first product description',
-                    'price' => 100,
-                ],
-                [
-                    'id' => Uuid::uuid4(),
-                    'title' => 'Fifth product',
-                    'description' => 'first product description',
-                    'price' => 100,
-                ],
-                [
-                    'id' => Uuid::uuid4(),
-                    'title' => 'Sixth product',
-                    'description' => 'first product description',
-                    'price' => 100,
-                ],
-            ],
-        ];
+        $response['pageTitle'] = 'Welcome to thamelmart.com';
+        $response['products'] = $this->productRepository->getPaginate(4);
+        $response['productAttributes'] = $this->productRepository->getAttributes();
+
+        return $response;
     }
 }

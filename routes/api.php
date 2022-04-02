@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Http\Api\Controllers\HomeController;
+use App\Http\Api\Controllers\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::prefix('v1')->group(function () {
+    Route::controller(HomeController::class)->group(function () {
+        Route::get('/home', 'index');
+    });
 
-Route::get('/', [HomeController::class, 'index']);
+    Route::controller(ProductController::class)->prefix('product')->group(function () {
+        Route::get('get-attr', 'getAttributes');
+    });
+    Route::resource('product', ProductController::class);
+});
+
+
